@@ -108,8 +108,6 @@ NSString *const SLCoreDataStackErrorDomain = @"SLCoreDataStackErrorDomain";
 @property (nonatomic, readonly) NSURL *_dataStoreRootURL;
 @property (nonatomic, readonly) BOOL requiresMigration;
 
-@property (nonatomic, readonly) NSURL *dataStoreURL;
-
 @end
 
 
@@ -143,9 +141,13 @@ NSString *const SLCoreDataStackErrorDomain = @"SLCoreDataStackErrorDomain";
 - (NSURL *)dataStoreURL
 {
     NSURL *dataStoreRootURL = self._dataStoreRootURL;
-    NSString *dataStoreFileName = [NSString stringWithFormat:@"%@.sqlite", self.managedObjectModelName];
+    NSString *dataStoreFileName = self.databaseFileName;
     
     return [dataStoreRootURL URLByAppendingPathComponent:dataStoreFileName];
+}
+
+-(NSString *) databaseFileName {
+    return [NSString stringWithFormat:@"%@.sqlite", self.managedObjectModelName];
 }
 
 - (NSURL *)_dataStoreRootURL
@@ -236,6 +238,13 @@ NSString *const SLCoreDataStackErrorDomain = @"SLCoreDataStackErrorDomain";
 }
 
 #pragma mark - Class methods
+
+-(void) resetConnection {
+    self.managedObjectModel = nil;
+    self.persistentStoreCoordinator = nil;
+    self.mainThreadManagedObjectContext = nil;
+    self.backgroundThreadManagedObjectContext = nil;
+}
 
 + (BOOL)subclassesRequireMigration
 {

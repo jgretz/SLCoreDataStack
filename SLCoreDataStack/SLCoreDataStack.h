@@ -73,9 +73,25 @@ enum {
 @property (nonatomic, readonly) NSURL *databaseRootURL;
 
 /**
+ The URL in which the database will be stored.
+ */
+@property (nonatomic, readonly) NSURL *dataStoreURL;
+
+/**
+ The root URL in which the database will be stored. Default is NSLibraryDirectory.
+ */
+@property (nonatomic, readonly) NSString *databaseFileName;
+
+
+/**
  The bundle, in with the momd file and migrations are stored.
  */
 @property (nonatomic, readonly) NSBundle *bundle;
+
+/**
+ Resets the current connection to the persistent store and supporting classes - the intent of the use to assist in switching database files
+*/
+- (void) resetConnection;
 
 /**
  Returns YES if any concrete subclass requires a migration that has been registered with +[SLCoreDataStack registerSubclass:].
