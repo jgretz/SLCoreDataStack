@@ -240,6 +240,9 @@ NSString *const SLCoreDataStackErrorDomain = @"SLCoreDataStackErrorDomain";
 #pragma mark - Class methods
 
 -(void) resetConnection {
+    [self.mainThreadManagedObjectContext reset];
+    [self.backgroundThreadManagedObjectContext reset];
+
     self.managedObjectModel = nil;
     self.persistentStoreCoordinator = nil;
     self.mainThreadManagedObjectContext = nil;
