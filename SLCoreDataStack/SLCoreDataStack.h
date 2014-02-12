@@ -44,6 +44,8 @@ enum {
 @property (nonatomic, strong) NSManagedObjectContext *mainThreadManagedObjectContext;
 @property (nonatomic, strong) NSManagedObjectContext *backgroundThreadManagedObjectContext;
 
+@property (nonatomic, strong) NSDictionary *storeOptions;
+
 /**
  returns a new NSManagedObjectContext instance which is observed by this CoreData stack and automatically merges changes between all other observing contexts. Observation ends iff the NSManagedObjectContext gets dealloced.
  */
